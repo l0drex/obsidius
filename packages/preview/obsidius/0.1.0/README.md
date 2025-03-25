@@ -8,7 +8,7 @@ It features utility functions to add Obsidians callouts to the document, for exa
 Get started by adding the following code to your document:
 
 ```typst
-#import "@preview/obisidius:0.1.0": *
+#import "@preview/obsidius:0.1.0": *
 
 #show: notes.with("Your fancy title");
 ```
