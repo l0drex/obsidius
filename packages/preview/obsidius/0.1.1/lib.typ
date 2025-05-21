@@ -83,14 +83,21 @@
   content
 }
 
+#let fact(body) = callout(
+  emoji.lightbulb,
+  "Fact",
+  body,
+  (oklch(55.4%, 0.135, 66.442deg), oklch(97.3%, 0.071, 103.193deg), oklch(90.5%, 0.182, 98.111deg)),
+)
+
 #let warning(body) = {
   callout(emoji.warning, "Warning", body,
-    (rgb("#A55E00"), rgb("#FDF8C2"), rgb("#FDDE20")))
+    (oklch(55.3%, 0.195, 38.402deg), oklch(95.4%, 0.038, 75.164deg), oklch(83.7%, 0.128, 66.29deg)))
 }
 
 #let solution(body) = {
   callout(emoji.checkmark.box, "Solution", body,
-    (rgb("#2AA63D"), rgb("#DBFCE7"), rgb("#7AF0A8")))
+    (oklch(52.7%, 0.154, 150.069deg), oklch(96.2%, 0.044, 156.743deg), oklch(87.1%, 0.15, 154.449deg)))
 }
 
 #let questions(body) = {
