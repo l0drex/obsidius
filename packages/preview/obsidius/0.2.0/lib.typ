@@ -54,58 +54,6 @@
     .at(0, default: (body: []))
 }
 
-// useful to show code including math content
-#let code(title, body, params: none) = {
-  set text(font: "JetBrains Mono")
-  callout("code", title, [
-  #if params != none [
-    *Input:* #params.input \
-    *Output:* #params.output
-
-    #line(length: 100%, stroke: (paint: oklch(55.1%, 0.027, 264.364deg), dash: "dashed"))
-  ]
-
-  #body
-  ],
-  twColors.gray)
-}
-
-// compare two things side by side
-#let compare(title_left, title_right, body_left, body_right) = {
-  grid(columns: 2, gutter: 1em,
-    emptyblock((black, none, twColors.gray.at(2)), [
-      #{
-        set align(center)
-        heading(title_left, outlined: false, numbering: none, depth: 3)
-      }
-      #body_left
-    ]),
-    emptyblock((black, none, twColors.gray.at(2)), [
-      #{
-        set align(center)
-        heading(title_right, outlined: false, numbering: none, depth: 3)
-      }
-      #body_right
-    ])
-  )
-}
-
-#let good-bad(good, bad) = {
-  grid(columns: 2, gutter: 1em,
-    callout("check", [Pro], good, twColors.green),
-    callout("close", [Con], bad, twColors.red)
-  )
-}
-
-#let questions(body) = {
-  set text(fill: inactive-text-color)
-  [
-    *Questions*
-    #body
-  ]
-}
-
-
 // callout definitions
 
 #let addTitle(title) = if title != [] {
@@ -136,6 +84,57 @@
 
 #let example(content, title: []) = callout("edit", [Example#addTitle(title)], content, twColors.purple)
 
+
+// useful to show code including math content
+#let code(title, body, params: none) = {
+  set text(font: "JetBrains Mono")
+  callout("code", title, [
+  #if params != none [
+    *Input:* #params.input \
+    *Output:* #params.output
+
+    #line(length: 100%, stroke: (paint: oklch(55.1%, 0.027, 264.364deg), dash: "dashed"))
+  ]
+
+  #body
+  ],
+  twColors.gray)
+}
+
+// compare two things side by side
+#let compare(..args) = {
+  // assumes even number of arguments
+  let half-args = calc.div-euclid(args.len(), 2)
+  grid(columns: half-args, gutter: 1em,
+    ..for i in range(args.len()) {
+      if i >= half-args {
+        continue
+      }
+      (emptyblock((black, none, twColors.gray.at(2)), [
+        #{
+          set align(center)
+          heading(args.at(i), outlined: false, numbering: none, depth: 3)
+        }
+        #args.at(i + half-args)
+      ]),)
+    }
+  )
+}
+
+#let good-bad(good, bad) = {
+  grid(columns: 2, gutter: 1em,
+    callout("check", [Pro], good, twColors.green),
+    callout("close", [Con], bad, twColors.red)
+  )
+}
+
+#let questions(body) = {
+  set text(fill: inactive-text-color)
+  [
+    *Questions*
+    #body
+  ]
+}
 
 #let notes(title, content) = {
   // meta information
