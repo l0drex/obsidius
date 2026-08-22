@@ -11,6 +11,13 @@
   gray: (oklch(37.3%, 0.034, 259.733deg), oklch(96.7%, 0.003, 264.542deg), oklch(87.2%, 0.01, 258.338deg)),
 )
 
+#let fonts = (
+  sans: "Noto Sans",
+  mono: "Noto Sans Mono",
+  serif: "Noto Sans Serif",
+  math: ""
+)
+
 #let emptyblock((fontcolor, bgcolor, bordercolor), width: 100%, height: auto, content) = {
   set text(fill: fontcolor)
   block(width: width, height: height, inset: (x: 0.75em, y: 0.5em), radius: 0.5em, breakable: false,
@@ -72,7 +79,7 @@
 
 // hint
 
-#let solution(content) = callout("check", "Solution", content, twColors.green)
+#let solution(content, title: []) = callout("check", "Solution", content, twColors.green)
 
 #let idea(content, title: []) = callout("lightbulb", [Idea#addTitle(title)], content, twColors.yellow)
 
@@ -155,7 +162,7 @@
     ])
   })
 
-  set text(font: "Noto Sans")
+  set text(font: fonts.sans)
 
   set heading(numbering: "1.")
   show heading: set text(weight: "extrabold")
@@ -190,10 +197,10 @@
   show table.cell.where(y: 0): set text(weight: "bold")
   show table: set align(start)
 
-  show raw: set text(font: "Noto Sans Mono")
+  show raw: set text(font: fonts.mono)
   show raw.where(block: true): it => {
     emptyblock(twColors.gray, {
-      place(top+right, text(font: "Lato", fill: inactive-text-color, it.lang))
+      place(top+right, text(font: fonts.sans, fill: inactive-text-color, it.lang))
 
       show raw.line: line => {
         if line.number < 10 {
@@ -222,7 +229,10 @@
   }
 
 
-  //show math.equation: set text(font: "Noto Sans Math")
+  if fonts.math != "" {
+    show math.equation: set text(font: fonts.math)
+  }
 
   content
 }
+
